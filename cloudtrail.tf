@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "example" {
 
 resource "aws_cloudtrail" "awscloudtrail_central_logs" {
   name                            = var.centrail_logging_name
-  s3_bucket_name                  = aws_s3_bucket.example
+  s3_bucket_name                  = aws_s3_bucket.example.id
   s3_key_prefix                   = var.key_prefix
 
   is_organization_trail           = true
