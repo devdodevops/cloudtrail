@@ -14,7 +14,7 @@ resource "aws_cloudtrail" "awscloudtrail_central_logs" {
   s3_bucket_name                  = aws_s3_bucket.example.id
   s3_key_prefix                   = var.key_prefix
 
-  is_organization_trail           = true
+  is_organization_trail           = false
   is_multi_region_trail           = true
   include_global_service_events   = true
 
