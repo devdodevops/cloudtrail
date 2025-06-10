@@ -1,15 +1,5 @@
 data "aws_caller_identity" "current" {}
 
-resource "aws_s3_bucket" "example" {
-  bucket = "dev-cloudtrail-logs-dev-266735842047"
-
-  tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
-  }
-}
-
-
 # Your S3 bucket resource
 resource "aws_s3_bucket" "example" {
   bucket = "dev-cloudtrail-logs-dev-266735842047"
