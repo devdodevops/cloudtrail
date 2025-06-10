@@ -8,7 +8,7 @@ variable "centrail_logging_name" {
     default = "awscloudtrail-central-logging-my-account"
 }
 variable "key_prefix" {
-    default = "rHPPn1Vzzj"
+    default = "log112233"
 }
 
 variable "s3_data_event_monitored_buckets" {
