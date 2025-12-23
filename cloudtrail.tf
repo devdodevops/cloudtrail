@@ -1,8 +1,8 @@
 # Define common variables in one place
-#locals {
-  # Define your S3 key prefix here. If you don't want a prefix, set it to ""
-#  cloudtrail_s3_prefix = "log112233" 
-#}
+locals {
+   Define your S3 key prefix here. If you don't want a prefix, set it to ""
+  cloudtrail_s3_prefix = "log112233" 
+}
 
 # Data source to get the current AWS account ID automatically
 #data "aws_caller_identity" "current" {}
