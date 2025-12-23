@@ -8,54 +8,54 @@
 #data "aws_caller_identity" "current" {}
 
 # Your S3 bucket resource
-#resource "aws_s3_bucket" "example" {
-#  bucket = "dev-cloudtrail-logs-dev-266735842047"
-#
-#  tags = {
-#    Name        = "My bucket"
-#    Environment = "Dev"
-#  }
-#}
-#
+resource "aws_s3_bucket" "example" {
+  bucket = "dev-cloudtrail-logs-dev-266735842047"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
+}
+
 # Constructs the IAM policy in a readable HCL format
-#data "aws_iam_policy_document" "cloudtrail_s3_policy" {
-#  statement {
-#    sid       = "AWSCloudTrailAclCheck"
-#    effect    = "Allow"
-#    actions   = ["s3:GetBucketAcl"]
-#    resources = [aws_s3_bucket.example.arn]
-#
-  #  principals {
-  #    type        = "Service"
-  #    identifiers = ["cloudtrail.amazonaws.com"]
-  #  }
- # }
-#
- # statement {
- #   sid       = "AWSCloudTrailWrite"
- #   effect    = "Allow"
-#    actions   = ["s3:PutObject"]
-#    # THIS IS THE KEY CHANGE: Include the S3 key prefix in the resource path
-#    resources = ["${aws_s3_bucket.example.arn}/${local.cloudtrail_s3_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
-#
-#    principals {
-#      type        = "Service"
-#      identifiers = ["cloudtrail.amazonaws.com"]
-#    }
-#
-#    condition {
-#      test     = "StringEquals"
-#      variable = "s3:x-amz-acl"
-#      values   = ["bucket-owner-full-control"]
-#    }
-#  }
-#}
+data "aws_iam_policy_document" "cloudtrail_s3_policy" {
+  statement {
+    sid       = "AWSCloudTrailAclCheck"
+    effect    = "Allow"
+    actions   = ["s3:GetBucketAcl"]
+    resources = [aws_s3_bucket.example.arn]
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+  }
+
+  statement {
+    sid       = "AWSCloudTrailWrite"
+    effect    = "Allow"
+   actions   = ["s3:PutObject"]
+    # THIS IS THE KEY CHANGE: Include the S3 key prefix in the resource path
+    resources = ["${aws_s3_bucket.example.arn}/${local.cloudtrail_s3_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "s3:x-amz-acl"
+      values   = ["bucket-owner-full-control"]
+    }
+  }
+}
 
 # Attaches the policy document to the S3 bucket
-#resource "aws_s3_bucket_policy" "example_policy" {
- # bucket = aws_s3_bucket.example.id
- # policy = data.aws_iam_policy_document.cloudtrail_s3_policy.json
-#}
+resource "aws_s3_bucket_policy" "example_policy" {
+  bucket = aws_s3_bucket.example.id
+  policy = data.aws_iam_policy_document.cloudtrail_s3_policy.json
+}
 
 #resource "aws_cloudtrail" "awscloudtrail_central_logs" {
   # Add this depends_on block
