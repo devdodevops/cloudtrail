@@ -1,6 +1,5 @@
 # Define common variables in one place
 locals {
-   Define your S3 key prefix here. If you don't want a prefix, set it to ""
   cloudtrail_s3_prefix = "log112233" 
 }
 
